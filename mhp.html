@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="script.js"></script>
+
+    <title>MHP Canteen Menu</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+      }
+      .menu-container {
+        display: flex;
+      }
+      .menu {
+        width: 60%;
+        padding: 20px;
+      }
+      .cart {
+        width: 40%;
+        padding: 20px;
+        background: #f8f8f8;
+      }
+      .item {
+        border: 1px solid #ddd;
+        padding: 15px;
+        margin: 10px 0;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+      .cart-items {
+        list-style: none;
+        padding: 0;
+      }
+      button {
+        background-color: #28a745;
+        color: white;
+        border: none;
+        padding: 8px 12px;
+        cursor: pointer;
+      }
+      button:hover {
+        background-color: #218838;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>MHP Canteen Menu</h1>
+    <div class="menu-container">
+      <div class="menu">
+        <div class="item">
+          <span>Sannabooni Laddu - ₹100</span>
+          <button onclick="addToCart('Sannabooni Laddu', 100)">Add</button>
+        </div>
+        <div class="item">
+          <span>Kaaju Burfi - ₹300</span>
+          <button onclick="addToCart('Kaaju Burfi', 300)">Add</button>
+        </div>
+        <div class="item">
+          <span>Mothichoor Laddu - ₹120</span>
+          <button onclick="addToCart('Mothichoor Laddu', 120)">Add</button>
+        </div>
+        <div class="item">
+          <span>Jalebi - ₹80</span>
+          <button onclick="addToCart('Jalebi', 80)">Add</button>
+        </div>
+        <div class="item">
+          <span>Rasgulla - ₹150</span>
+          <button onclick="addToCart('Rasgulla', 150)">Add</button>
+        </div>
+        <div class="item">
+          <span>Gulab Jamun - ₹140</span>
+          <button onclick="addToCart('Gulab Jamun', 140)">Add</button>
+        </div>
+        <div class="item">
+          <span>Pani Puri - ₹50</span>
+          <button onclick="addToCart('Pani Puri', 50)">Add</button>
+        </div>
+        <div class="item">
+          <span>Masala Dosa - ₹90</span>
+          <button onclick="addToCart('Masala Dosa', 90)">Add</button>
+        </div>
+        <div class="item">
+          <span>Idli - ₹40</span>
+          <button onclick="addToCart('Idli', 40)">Add</button>
+        </div>
+        <div class="item">
+          <span>Vada - ₹50</span>
+          <button onclick="addToCart('Vada', 50)">Add</button>
+        </div>
+        <div class="item">
+          <span>Chole Bhature - ₹120</span>
+          <button onclick="addToCart('Chole Bhature', 120)">Add</button>
+        </div>
+        <div class="item">
+          <span>Pav Bhaji - ₹110</span>
+          <button onclick="addToCart('Pav Bhaji', 110)">Add</button>
+        </div>
+        <div class="item">
+          <span>Paneer Tikka - ₹180</span>
+          <button onclick="addToCart('Paneer Tikka', 180)">Add</button>
+        </div>
+        <div class="item">
+          <span>Veg Biryani - ₹160</span>
+          <button onclick="addToCart('Veg Biryani', 160)">Add</button>
+        </div>
+        <div class="item">
+          <span>Chicken Biryani - ₹250</span>
+          <button onclick="addToCart('Chicken Biryani', 250)">Add</button>
+        </div>
+        <div class="item">
+          <span>Egg Fried Rice - ₹130</span>
+          <button onclick="addToCart('Egg Fried Rice', 130)">Add</button>
+        </div>
+        <div class="item">
+          <span>French Fries - ₹70</span>
+          <button onclick="addToCart('French Fries', 70)">Add</button>
+        </div>
+        <div class="item">
+          <span>Cold Coffee - ₹90</span>
+          <button onclick="addToCart('Cold Coffee', 90)">Add</button>
+        </div>
+        <div class="item">
+          <span>Mango Shake - ₹100</span>
+          <button onclick="addToCart('Mango Shake', 100)">Add</button>
+        </div>
+        <div class="item">
+          <span>Lemon Juice - ₹40</span>
+          <button onclick="addToCart('Lemon Juice', 40)">Add</button>
+        </div>
+      </div>
+
+      <div class="cart">
+        <h2>Cart</h2>
+        <ul class="cart-items"></ul>
+        <h3>Total: ₹<span id="total-price">0</span></h3>
+        <button onclick="checkout()">Checkout</button>
+      </div>
+    </div>
+
+    <script>
+      let cart = [];
+      let totalPrice = 0;
+
+      function addToCart(item, price) {
+        cart.push({ item, price });
+        totalPrice += price;
+        updateCart();
+      }
+
+      function updateCart() {
+        let cartList = document.querySelector(".cart-items");
+        cartList.innerHTML = "";
+        cart.forEach((cartItem, index) => {
+          let li = document.createElement("li");
+          li.textContent = `${cartItem.item} - ₹${cartItem.price}`;
+          cartList.appendChild(li);
+        });
+        document.getElementById("total-price").textContent = totalPrice;
+      }
+
+      function checkout() {
+        if (cart.length === 0) {
+          alert("Your cart is empty!");
+          return;
+        }
+        alert("Proceeding to checkout. Total Amount: ₹" + totalPrice);
+        cart = [];
+        totalPrice = 0;
+        updateCart();
+      }
+    </script>
+  </body>
+</html>

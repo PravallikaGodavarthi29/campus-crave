@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>My Cart - Booking</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        text-align: center;
+        background-color: #f8f8f8;
+        margin: 20px;
+      }
+      .container {
+        max-width: 800px;
+        margin: auto;
+        padding: 20px;
+        background: white;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        border-radius: 10px;
+      }
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-bottom: 20px;
+      }
+      th,
+      td {
+        border: 1px solid #ddd;
+        padding: 10px;
+        text-align: center;
+      }
+      th {
+        background-color: #f4f4f4;
+      }
+      .quantity-buttons {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+      .quantity-buttons button {
+        padding: 5px 10px;
+        margin: 0 5px;
+        border: none;
+        background-color: #ff9800;
+        color: white;
+        cursor: pointer;
+      }
+      .quantity-buttons button:hover {
+        background-color: #e68900;
+      }
+      input,
+      select,
+      button {
+        width: 100%;
+        padding: 10px;
+        margin: 5px 0;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+      }
+      button {
+        background-color: green;
+        color: white;
+        cursor: pointer;
+        font-size: 16px;
+      }
+      button:hover {
+        background-color: darkgreen;
+      }
+      .buy-now {
+        background-color: orange;
+        font-size: 18px;
+        font-weight: bold;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>My Cart</h1>
+    <div class="container">
+      <table>
+        <thead>
+          <tr>
+            <th>S.No.</th>
+            <th>Product</th>
+            <th>Product Name</th>
+            <th>Price</th>
+            <th>Quantity</th>
+            <th>Subtotal</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody id="cart-summary"></tbody>
+      </table>
+
+      <p><strong>Subtotal:</strong> ₹<span id="subtotal">0.00</span></p>
+      <p><strong>GST Charges (3%):</strong> ₹<span id="gst">0.00</span></p>
+      <p><strong>Total:</strong> ₹<span id="total">0.00</span></p>
+
+      <h2>Enter Details</h2>
+      <input type="text" id="name" placeholder="Enter Name" required />
+      <input type="text" id="phone" placeholder="Enter Phone Number" required />
+      <input type="time" id="pickup-time" placeholder="Enter Pick-up Time" />
+      <label for="order-type">Order Type:</label>
+      <select id="order-type">
+        <option value="Dine In">Dine In</option>
+        <option value="Takeaway">Takeaway</option>
+        <option value="Delivery">Delivery</option>
+      </select>
+      <button class="buy-now" onclick="confirmOrder()">Buy Now</button>
+    </div>
+
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        let cart = JSON.parse(localStorage.getItem("cart")) || {};
+        let cartList = document.getElementById("cart-summary");
+        let subtotalElement = document.getElementById("subtotal");
+        let gstElement = document.getElementById("gst");
+        let totalElement = document.getElementById("total");
+
+        cartList.innerHTML = "";
+        let subtotal = 0;
+
+        if (Object.keys(cart).length === 0) {
+          cartList.innerHTML =
+            "<tr><td colspan='7'>Your cart is empty.</td></tr>";
+        } else {
+          let index = 1;
+          Object.keys(cart).forEach((item) => {
+            let { price, quantity } = cart[item];
+            let subtotalItem = price * quantity;
+            subtotal += subtotalItem;
+
+            let row = `<tr>
+                    <td>${index++}</td>
+                    <td><img src="placeholder.jpg" width="50"></td>
+                    <td>${item}</td>
+                    <td>₹${price.toFixed(2)}</td>
+                    <td class="quantity-buttons">
+                        <button onclick="updateQuantity('${item}', -1)">-</button>
+                        ${quantity}
+                        <button onclick="updateQuantity('${item}', 1)">+</button>
+                    </td>
+                    <td>₹${subtotalItem.toFixed(2)}</td>
+                    <td><button onclick="removeItem('${item}')">Remove</button></td>
+                </tr>`;
+            cartList.innerHTML += row;
+          });
+        }
+
+        let gst = subtotal * 0.03;
+        let total = subtotal + gst;
+
+        subtotalElement.textContent = subtotal.toFixed(2);
+        gstElement.textContent = gst.toFixed(2);
+        totalElement.textContent = total.toFixed(2);
+      });
+
+      function updateQuantity(item, change) {
+        let cart = JSON.parse(localStorage.getItem("cart")) || {};
+        if (cart[item]) {
+          cart[item].quantity += change;
+          if (cart[item].quantity <= 0) {
+            delete cart[item];
+          }
+          localStorage.setItem("cart", JSON.stringify(cart));
+          location.reload();
+        }
+      }
+
+      function removeItem(item) {
+        let cart = JSON.parse(localStorage.getItem("cart")) || {};
+        delete cart[item];
+        localStorage.setItem("cart", JSON.stringify(cart));
+        location.reload();
+      }
+
+      function confirmOrder() {
+        let name = document.getElementById("name").value;
+        let phone = document.getElementById("phone").value;
+        let orderType = document.getElementById("order-type").value;
+
+        if (!name || !phone) {
+          alert("Please enter all details before proceeding.");
+          return;
+        }
+
+        alert(
+          `Order Confirmed!\nName: ${name}\nPhone: ${phone}\nOrder Type: ${orderType}`
+        );
+        localStorage.removeItem("cart");
+        localStorage.removeItem("totalPrice");
+        location.reload();
+      }
+    </script>
+  </body>
+</html>

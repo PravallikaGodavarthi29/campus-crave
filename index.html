@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="VU Eats: Discover the best university canteens and pre-order food easily."
+    />
+    <meta
+      name="keywords"
+      content="university food, canteen, pre-order food, Vignan University"
+    />
+    <title>University Eats</title>
+    <link rel="stylesheet" href="styles.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+    />
+  </head>
+  <body>
+    <header>
+      <div class="logo">
+        <img
+          src="C:\Users\PRAVALLIKA\Desktop\vueats\images\VU EATS.png"
+          alt="University Eats Logo"
+        />
+      </div>
+      <nav>
+        <a href="#home" aria-label="Navigate to Home">Home</a>
+        <a href="#about">About</a>
+        <a href="#canteens">Canteens</a>
+        <a href="#team">Our Team</a>
+        <a href="#contact">Contact</a>
+      </nav>
+      
+      
+    
+      </div>
+      
+    </header>
+   
+    
+
+    <main>
+      <section id="home" class="hero">
+        <div class="hero-text">
+          <h2>Welcome To <span class="highlight">VU Eats</span></h2>
+          <p>
+            Your one-stop platform for discovering the best food on campus at
+            Vignan's University, Guntur.
+          </p>
+        </div>
+        <div class="hero-image">
+          <img
+            src="C:\Users\PRAVALLIKA\Desktop\vueats\images\home.jpg"
+            alt="Delicious Food"
+          />
+        </div>
+      </section>
+      <section id="about" class="about">
+        <div class="about-content">
+          <h2>About Us</h2>
+          <p>
+            Welcome to <strong>VU Eats</strong>, your ultimate guide to
+            exploring the best canteens and eateries on Vignan University
+            campus. Our mission is to help students, staff, and visitors
+            discover a wide variety of food options, ensuring a delightful
+            dining experience every time.
+          </p>
+
+          <h3>How Is It Useful?</h3>
+          <p>
+            VU Eats not only saves time by providing accurate and up-to-date
+            information about food options but also fosters a community of food
+            enthusiasts. Whether you’re craving snacks, full meals, or
+            beverages, this platform has got you covered!
+          </p>
+        </div>
+        <div class="about-image">
+          <img
+            src="C:\Users\PRAVALLIKA\Desktop\vueats\images\about.jpg"
+            alt="About Us Image"
+          />
+        </div>
+      </section>
+      <section id="canteens" class="canteens">
+        <div class="canteens-header">
+          <h2>Explore Our Canteens</h2>
+          <p>
+            Discover the diverse range of dining options available on campus.
+            Find your favorite spot and enjoy delicious food!
+          </p>
+        </div>
+        <div class="canteens-grid">
+          <!-- MHP Canteen -->
+          <div class="canteen-card">
+            <img
+              src="C:\Users\PRAVALLIKA\Desktop\vueats\images\canteen3.jpg"
+              alt="MHP Canteen"
+            />
+            <h3>MHP Canteen</h3>
+            <p>
+              Enjoy a variety of snacks, meals, and beverages at the MHP
+              canteen.
+            </p>
+            <div class="canteen-buttons">
+              <button class="view-btn" onclick="viewCanteen('mhp')">
+                View
+              </button>
+              <button class="book-btn">Book</button>
+            </div>
+          </div>
+          <!-- Cafe -->
+          <div class="canteen-card">
+            <img
+              src="C:\Users\PRAVALLIKA\Desktop\vueats\images\canteen1.jpeg"
+              alt="Cafe"
+            />
+            <h3>Cafe</h3>
+            <p>
+              Relax and grab your favorite coffee or pastries at the campus
+              cafe.
+            </p>
+            <div class="canteen-buttons">
+              <button class="view-btn" onclick="viewCanteen('cafe')">
+                View
+              </button>
+              <button class="book-btn">Book</button>
+            </div>
+          </div>
+
+          <!-- A Block Third Floor -->
+          <div class="canteen-card">
+            <img
+              src="C:\Users\PRAVALLIKA\Desktop\vueats\images\canteen2.jpg"
+              alt="A Block Third Floor"
+            />
+            <h3>A Block - Third Floor</h3>
+            <p>
+              Delight in a wide range of snacks and meals at A Block's
+              third-floor canteen.
+            </p>
+            <div class="canteen-buttons">
+              <button class="view-btn" onclick="viewCanteen('a-block-3rd')">
+                View
+              </button>
+              <button class="book-btn">Book</button>
+            </div>
+          </div>
+          <!-- U Block Canteen -->
+          <div class="canteen-card">
+            <img
+              src="C:\Users\PRAVALLIKA\Desktop\vueats\images\canteen4.jpg"
+              alt="U Block Canteen"
+            />
+            <h3>U Block Canteen</h3>
+            <p>
+              Visit U Block canteen for fresh meals and a relaxing dining
+              experience.
+            </p>
+            <div class="canteen-buttons">
+              <button class="view-btn" onclick="viewCanteen('u-block')">
+                View
+              </button>
+              <button class="book-btn">Book</button>
+            </div>
+          </div>
+          <!-- H Block Ground Floor -->
+          <div class="canteen-card">
+            <img
+              src="C:\Users\PRAVALLIKA\Desktop\vueats\images\canteen5.jpg"
+              alt="H Block Ground Floor"
+            />
+            <h3>H Block - Ground Floor</h3>
+            <p>
+              Enjoy quick bites and wholesome meals at the H Block ground-floor
+              canteen.
+            </p>
+            <div class="canteen-buttons">
+              <button class="view-btn" onclick="viewCanteen('h-block-ground')">
+                View
+              </button>
+              <button class="book-btn">Book</button>
+            </div>
+          </div>
+
+          <!-- N Block Canteen -->
+          <div class="canteen-card">
+            <img
+              src="C:\Users\PRAVALLIKA\Desktop\vueats\images\canteen6.jpg"
+              alt="N Block Canteen"
+            />
+            <h3>N Block Canteen</h3>
+            <p>
+              Explore the N Block canteen for an exceptional range of food and
+              beverages.
+            </p>
+            <div class="canteen-buttons">
+              <button class="view-btn" onclick="viewCanteen('n-block')">
+                View
+              </button>
+              <button class="book-btn">Book</button>
+            </div>
+          </div>
+        </div>
+      </section>
+      <script>
+        function viewCanteen(canteen) {
+          if (canteen === "mhp") {
+            window.location.href = "mhp.html";
+          } else if (canteen === "cafe") {
+            window.location.href = "cafe.html";
+          } else if (canteen === "a-block-3rd") {
+            window.location.href = "a-block-3rd.html";
+          } else if (canteen === "u-block") {
+            window.location.href = "u-block.html";
+          } else if (canteen === "h-block-ground") {
+            window.location.href = "h-block-ground.html";
+          } else if (canteen === "n-block") {
+            window.location.href = "n-block.html";
+          }
+        }
+      </script>
+      
+      <!-- Our Team Section -->
+      <section id="team">
+        <h2>Our Team</h2>
+        <div class="team-container">
+          <!-- Profile 1 -->
+          <div class="team-member">
+            <img
+              src="C:\Users\PRAVALLIKA\Desktop\vueats\images\WhatsApp Image 2024-12-31 at 12.35.46_09e146bc.jpg"
+              alt="Team Member 1"
+            />
+            <h3>THALLURI KIRANMAI</h3>
+            <h4>221FA07006</h4>
+            <p>Web Developer</p>
+            <p>
+              Currently, I'm pursuing my graduation at Vignan University in the
+              Department of IT&CA.
+            </p>
+          </div>
+
+          <!-- Profile 2 -->
+          <div class="team-member">
+            <img
+              src="C:\Users\PRAVALLIKA\Desktop\vueats\images\WhatsApp Image 2024-12-31 at 12.37.20_b58b898b.jpg"
+              alt="Team Member 2"
+            />
+            <h3>GODAVARTHI NAGA PRAVALLIKA</h3>
+            <h4>221FA07027</h4>
+            <p>Web Developer</p>
+            <p>
+              Currently, I'm pursuing my graduation at Vignan University in the
+              Department of IT&CA.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Contact Us Section -->
+      <section id="contact" class="contact">
+        <div class="contact-container">
+          <div class="contact-info">
+            <h2>Contact Us</h2>
+            <p>
+              We’d love to hear from you! Feel free to reach out with your
+              questions, feedback, or suggestions.
+            </p>
+            <ul class="contact-details">
+              <li><strong>Email:</strong> support@vucanteens.com</li>
+              <li><strong>Phone:</strong> +91 9876543210</li>
+              <li>
+                <strong>Address:</strong> Vignan University, Guntur, Andhra
+                Pradesh, India
+              </li>
+            </ul>
+            <div class="social-links">
+              <a href="https://www.facebook.com" class="social-icon"
+                ><i class="fab fa-facebook-f"></i
+              ></a>
+              <a href="https://www.twitter.com" class="social-icon"
+                ><i class="fab fa-twitter"></i
+              ></a>
+              <a href="https://www.instagram.com" class="social-icon"
+                ><i class="fab fa-instagram"></i
+              ></a>
+              <a href="https://www.linkedin.com" class="social-icon"
+                ><i class="fab fa-linkedin-in"></i
+              ></a>
+            </div>
+          </div>
+
+          <!-- Contact Form -->
+          <div class="contact-form">
+            <form action="#" method="POST">
+              <div class="form-group">
+                <input
+                  type="text"
+                  name="name"
+                  placeholder="Your Name"
+                  required
+                />
+              </div>
+              <div class="form-group">
+                <input
+                  type="email"
+                  name="email"
+                  placeholder="Your Email"
+                  required
+                />
+              </div>
+              <div class="form-group">
+                <textarea
+                  name="message"
+                  rows="5"
+                  placeholder="Your Message"
+                  required
+                ></textarea>
+              </div>
+              <button type="submit" class="submit-btn">Send Message</button>
+            </form>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      <p>&copy; 2024 VU Eats. All rights reserved.</p>
+    </footer>
+
+    <script src="script.js"></script>
+    <script>
+      // Show login modal when login button is clicked
+      document
+        .getElementById("loginBtn")
+        .addEventListener("click", function () {
+          document.getElementById("loginModal").style.display = "block";
+        });
+
+      // Close login modal
+      document
+        .getElementById("closeLoginModal")
+        .addEventListener("click", function () {
+          document.getElementById("loginModal").style.display = "none";
+        });
+
+      // Open create account modal
+      document
+        .getElementById("createAccountLink")
+        .addEventListener("click", function () {
+          document.getElementById("loginModal").style.display = "none";
+          document.getElementById("createAccountModal").style.display = "block";
+        });
+
+      // Handle login form submission
+      document
+        .getElementById("loginForm")
+        .addEventListener("submit", function (e) {
+          e.preventDefault();
+          // Simulating successful login
+          document.getElementById("loginModal").style.display = "none";
+          document.getElementById("canteens").style.display = "block"; // Show canteens after login
+        });
+
+      // Handle create account form submission
+      document
+        .getElementById("createAccountForm")
+        .addEventListener("submit", function (e) {
+          e.preventDefault();
+          // Simulate account creation
+          document.getElementById("createAccountModal").style.display = "none";
+          document.getElementById("loginModal").style.display = "block"; // Return to login modal
+        });
+    </script>
+    <script>
+      function addToCart(item) {
+          let cart = JSON.parse(localStorage.getItem("cart")) || []; // Get existing cart
+          cart.push(item); // Add new item
+          localStorage.setItem("cart", JSON.stringify(cart)); // Save to localStorage
+      }
+  
+      // Attach function to buttons
+      document.querySelectorAll(".add-to-cart").forEach(button => {
+          button.addEventListener("click", function() {
+              let item = {
+                  name: this.getAttribute("data-name"),
+                  price: parseFloat(this.getAttribute("data-price")),
+                  quantity: 1
+              };
+              addToCart(item);
+              alert("Item added to cart!");
+          });
+      });
+  </script>
+  
+  </body>
+</html>

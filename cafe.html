@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Cafe Menu - Checkout</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        background-color: #f8f9fa;
+        margin: 0;
+        padding: 0;
+      }
+      h1,
+      h2 {
+        text-align: center;
+        color: #333;
+      }
+      .container {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        padding: 20px;
+        max-width: 1200px;
+        margin: auto;
+      }
+      .menu,
+      .cart {
+        background: white;
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        flex: 1;
+        margin: 10px;
+        min-width: 300px;
+      }
+      .menu {
+        flex: 2;
+      }
+      .item {
+        display: flex;
+        justify-content: space-between;
+        padding: 12px;
+        border-bottom: 1px solid #ddd;
+        font-size: 16px;
+      }
+      .item button,
+      .remove-btn,
+      .checkout-btn {
+        background: #ff5722;
+        color: white;
+        border: none;
+        padding: 6px 12px;
+        cursor: pointer;
+        border-radius: 5px;
+        font-size: 14px;
+        transition: 0.3s;
+      }
+      .remove-btn {
+        background: red;
+      }
+      .remove-btn:hover {
+        background: darkred;
+      }
+      .checkout-btn {
+        width: 100%;
+        background: green;
+        padding: 12px;
+        font-size: 16px;
+        margin-top: 10px;
+      }
+      .checkout-btn:hover {
+        background: darkgreen;
+      }
+      .category-tabs {
+        text-align: center;
+        margin: 20px 0;
+      }
+      .category-btn {
+        padding: 10px 15px;
+        margin: 5px;
+        border: none;
+        background: #007bff;
+        color: white;
+        cursor: pointer;
+        border-radius: 5px;
+      }
+      .category-btn.active,
+      .category-btn:hover {
+        background: #0056b3;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Cafe Menu</h1>
+    <div class="category-tabs">
+      <button class="category-btn active" onclick="filterMenu('all', this)">
+        All
+      </button>
+      <button class="category-btn" onclick="filterMenu('breakfast', this)">
+        Breakfast
+      </button>
+      <button class="category-btn" onclick="filterMenu('lunch', this)">
+        Lunch
+      </button>
+      <button class="category-btn" onclick="filterMenu('dinner', this)">
+        Dinner
+      </button>
+      <button class="category-btn" onclick="filterMenu('beverages', this)">
+        Beverages
+      </button>
+      <button class="category-btn" onclick="filterMenu('desserts', this)">
+        Desserts
+      </button>
+    </div>
+    <div class="container">
+      <div class="menu" id="menu-items"></div>
+      <div class="cart">
+        <h2>Cart</h2>
+        <ul class="cart-items"></ul>
+        <h3>Total: ₹<span id="total-price">0</span></h3>
+        <button class="checkout-btn" onclick="proceedToCheckout()">
+          Checkout
+        </button>
+      </div>
+    </div>
+    <script>
+      const menuData = [
+        { name: "Espresso", price: 100, category: "beverages" },
+        { name: "Cappuccino", price: 120, category: "beverages" },
+        { name: "Latte", price: 130, category: "beverages" },
+        { name: "Mocha", price: 140, category: "beverages" },
+        { name: "Cold Brew", price: 160, category: "beverages" },
+        { name: "Cheese Sandwich", price: 120, category: "breakfast" },
+        { name: "Veg Burger", price: 150, category: "lunch" },
+        { name: "French Fries", price: 90, category: "lunch" },
+        { name: "Chocolate Muffin", price: 110, category: "desserts" },
+        { name: "Veg Pizza", price: 200, category: "dinner" },
+      ];
+
+      let cart = JSON.parse(localStorage.getItem("cart")) || {}; // Load cart from localStorage
+
+      function addToCart(item, price) {
+        if (!cart[item]) {
+          cart[item] = { price, quantity: 0 };
+        }
+        cart[item].quantity++;
+        updateCart();
+      }
+
+      function updateCart() {
+        const cartList = document.querySelector(".cart-items");
+        let totalPrice = 0;
+
+        cartList.innerHTML = "";
+        Object.keys(cart).forEach((item) => {
+          const { price, quantity } = cart[item];
+          totalPrice += price * quantity;
+          cartList.innerHTML += `
+            <li>${item} - ₹${price} x ${quantity} = ₹${price * quantity}
+                <button class="increase-btn" onclick="increaseItem('${item}')">+</button>
+                <button class="decrease-btn" onclick="decreaseItem('${item}')">-</button>
+                <button class="remove-btn" onclick="removeFromCart('${item}')">Remove</button>
+            </li>
+        `;
+        });
+
+        document.getElementById("total-price").textContent = totalPrice;
+
+        // Save cart and total price in localStorage
+        localStorage.setItem("cart", JSON.stringify(cart));
+        localStorage.setItem("totalPrice", totalPrice);
+      }
+
+      function increaseItem(item) {
+        if (cart[item]) {
+          cart[item].quantity++;
+          updateCart();
+        }
+      }
+
+      function decreaseItem(item) {
+        if (cart[item]) {
+          cart[item].quantity--;
+          if (cart[item].quantity === 0) {
+            delete cart[item];
+          }
+          updateCart();
+        }
+      }
+
+      function removeFromCart(item) {
+        delete cart[item];
+        updateCart();
+      }
+
+      function proceedToCheckout() {
+        let totalPrice = Object.values(cart).reduce(
+          (acc, { price, quantity }) => acc + price * quantity,
+          0
+        );
+
+        localStorage.setItem("cart", JSON.stringify(cart));
+        localStorage.setItem("totalPrice", totalPrice); // Store total price
+        window.location.href = "booking.html"; // Redirect to booking page
+      }
+
+      function filterMenu(category, btn) {
+        document.getElementById("menu-items").innerHTML = menuData
+          .filter((item) => category === "all" || item.category === category)
+          .map(
+            (item) => `<div class="item">
+                    <span>${item.name} - ₹${item.price}</span>
+                    <button onclick="addToCart('${item.name}', ${item.price})">Add</button>
+                </div>`
+          )
+          .join("");
+
+        document
+          .querySelectorAll(".category-btn")
+          .forEach((button) => button.classList.remove("active"));
+        btn.classList.add("active");
+      }
+
+      document.addEventListener("DOMContentLoaded", function () {
+        filterMenu("all", document.querySelector(".category-btn.active"));
+        updateCart();
+      });
+    </script>
+  </body>
+</html>

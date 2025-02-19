@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>My Cart</title>
+    <style>
+      table {
+        width: 100%;
+        border-collapse: collapse;
+      }
+      th,
+      td {
+        padding: 10px;
+        border: 1px solid #ddd;
+        text-align: center;
+      }
+      img {
+        width: 50px;
+      }
+      .quantity-buttons button {
+        padding: 5px;
+        margin: 2px;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>My Cart</h1>
+
+    <table>
+      <thead>
+        <tr>
+          <th>S.No</th>
+          <th>Product</th>
+          <th>Product Name</th>
+          <th>Price</th>
+          <th>Quantity</th>
+          <th>Subtotal</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody id="cart-summary">
+        <!-- Items will be injected here -->
+      </tbody>
+    </table>
+
+    <h3>Subtotal: ₹<span id="subtotal">0.00</span></h3>
+    <h3>GST (3%): ₹<span id="gst">0.00</span></h3>
+    <h2>Total: ₹<span id="total">0.00</span></h2>
+
+    <h2>Enter Your Details</h2>
+    <form id="checkout-form">
+      <label>Name:</label>
+      <input type="text" id="name" required /><br /><br />
+
+      <label>Phone Number:</label>
+      <input type="tel" id="phone" required /><br /><br />
+
+      <label>Email:</label>
+      <input type="email" id="email" required /><br /><br />
+
+      <label>Order Type:</label>
+      <select id="order-type">
+        <option value="Dine In">Dine In</option>
+        <option value="Takeaway">Takeaway</option></select
+      ><br /><br />
+
+      <button type="submit">Buy Now</button>
+    </form>
+
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        console.log("Loading cart data...");
+
+        let cart = JSON.parse(localStorage.getItem("cart")) || {};
+        let cartList = document.getElementById("cart-summary");
+        let subtotalElement = document.getElementById("subtotal");
+        let gstElement = document.getElementById("gst");
+        let totalElement = document.getElementById("total");
+
+        cartList.innerHTML = ""; // Clear previous cart items
+        let subtotal = 0;
+
+        if (Object.keys(cart).length === 0) {
+          cartList.innerHTML =
+            "<tr><td colspan='7'>Your cart is empty.</td></tr>";
+        } else {
+          let index = 1;
+          Object.keys(cart).forEach((item) => {
+            let { price, quantity } = cart[item];
+            let subtotalItem = price * quantity;
+            subtotal += subtotalItem;
+
+            let row = `<tr>
+                        <td>${index++}</td>
+                        <td><img src="placeholder.jpg" width="50"></td>
+                        <td>${item}</td>
+                        <td>₹${price.toFixed(2)}</td>
+                        <td class="quantity-buttons">
+                            <button onclick="updateQuantity('${item}', -1)">-</button>
+                            ${quantity}
+                            <button onclick="updateQuantity('${item}', 1)">+</button>
+                        </td>
+                        <td>₹${subtotalItem.toFixed(2)}</td>
+                        <td><button onclick="removeItem('${item}')">Remove</button></td>
+                    </tr>`;
+            cartList.innerHTML += row;
+          });
+        }
+
+        let gst = subtotal * 0.03; // 3% GST
+        let total = subtotal + gst;
+
+        subtotalElement.textContent = subtotal.toFixed(2);
+        gstElement.textContent = gst.toFixed(2);
+        totalElement.textContent = total.toFixed(2);
+      });
+
+      // Update Quantity
+      function updateQuantity(item, change) {
+        let cart = JSON.parse(localStorage.getItem("cart")) || {};
+        if (cart[item]) {
+          cart[item].quantity += change;
+          if (cart[item].quantity <= 0) {
+            delete cart[item]; // Remove item if quantity is zero
+          }
+          localStorage.setItem("cart", JSON.stringify(cart));
+          location.reload(); // Refresh page
+        }
+      }
+
+      // Remove Item
+      function removeItem(item) {
+        let cart = JSON.parse(localStorage.getItem("cart")) || {};
+        delete cart[item];
+        localStorage.setItem("cart", JSON.stringify(cart));
+        location.reload();
+      }
+
+      // Checkout Form Submission
+      document
+        .getElementById("checkout-form")
+        .addEventListener("submit", function (e) {
+          e.preventDefault();
+          let name = document.getElementById("name").value;
+          let phone = document.getElementById("phone").value;
+          let email = document.getElementById("email").value;
+          let orderType = document.getElementById("order-type").value;
+
+          if (!name || !phone || !email) {
+            alert("Please fill all details!");
+            return;
+          }
+
+          let orderId = "ORD" + Math.floor(Math.random() * 10000);
+          let orderDetails = {
+            orderId,
+            name,
+            phone,
+            email,
+            orderType,
+            cart: JSON.parse(localStorage.getItem("cart")),
+            total: document.getElementById("total").textContent,
+          };
+
+          console.log("Order Confirmed:", orderDetails);
+          alert(
+            `Order Confirmed!\nOrder ID: ${orderId}\nTotal: ₹${orderDetails.total}`
+          );
+          localStorage.removeItem("cart"); // Clear cart after order
+          location.reload();
+        });
+    </script>
+    <script>
+      let cart = JSON.parse(localStorage.getItem("cart")) || {};
+      cart["Product Name"] = { price: 100, quantity: 1 };
+      localStorage.setItem("cart", JSON.stringify(cart));
+    </script>
+  </body>
+</html>
